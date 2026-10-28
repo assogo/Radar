@@ -1,0 +1,128 @@
+axes: [cli-ia, securite, cgu-ia]
+mots_cles: ["claude code", "codex", "MCP"]
+ignorer: ["crypto", "NFT"]
+
+sources:
+  - id: github-claude-code
+    type: releases
+    depot: anthropics/claude-code
+    produit: "Claude Code"
+    nom: "Dépôt GitHub officiel"
+    categorie: officielle
+    type_veille: technologique
+    per_page: 10
+  - id: github-codex
+    type: releases
+    depot: openai/codex
+    produit: "Codex"
+    nom: "Dépôt GitHub Codex"
+    categorie: officielle
+    type_veille: technologique
+    per_page: 30
+    exclure_prereleases: true
+  - id: hn-claude-code
+    type: hackernews
+    requete: "claude code"
+    nom: "Hacker News"
+    categorie: communaute
+    type_veille: technologique
+  - id: osv-express
+    type: failles
+    paquet: express
+    ecosysteme: npm
+    version: "4.17.1"
+    nom: "Base OSV (npm)"
+    categorie: institution
+    type_veille: securite
+  - id: cgu-openai-eu
+    type: page
+    url: "https://openai.com/policies/terms-of-use"
+    date_publication: "2026-01-16"
+    nom: "CGU OpenAI (EU)"
+    categorie: officielle
+    type_veille: reglementaire
+
+regles_score:
+  - { nom: "Source officielle",        type: categorie, valeur: officielle, points: 3 }
+  - { nom: "Source institution",       type: categorie, valeur: institution, points: 2 }
+  - { nom: "Source communauté",        type: categorie, valeur: communaute, points: 1 }
+  - { nom: "Source réseau social",     type: categorie, valeur: social, points: 0 }
+  - { nom: "Publiée il y a moins de 6 mois", type: recent, mois: 6, points: 1 }
+  - { nom: "Auteur identifié",         type: champ, champ: auteur, points: 1 }
+  - { nom: "Source ou méthode citée",  type: champ, champ: cite_source, points: 1 }
+  - { nom: "Source indépendante concordante", type: corroboration, sources_concernees: [releases, failles], points: 1 }
+  - { nom: "Lien affilié / partenaire", type: contient, mots: ["partenaire", "affilié", "sponsorisé", "autopromo"], points: -2 }
+  - { nom: "Type veille sécurité",     type: type_veille, valeur: securite, points: 2 }
+  - { nom: "Type veille réglementaire", type: type_veille, valeur: reglementaire, points: 1 }
+  - { nom: "Autopromo (Show HN)",      type: contient, mots: ["show hn"], points: -1 }
+
+etiquettes:
+  - { nom: claude-code, mots: ["claude code", "claude-code"] }
+  - { nom: codex, mots: ["codex"] }
+  - { nom: mcp, mots: ["mcp"] }
+  - { nom: securite, mots: ["cve", "faille", "securite", "vulnerab"] }
+
+seuil: 4
+
+decision:
+  question: "connexion"
+  mots: ["acp", "mcp", "agent", "protocole", "connexion", "cli"]
+  options:
+    - { id: statu-quo, nom: "Ne rien changer (Hivemind, pilotage CLI)", depot: "assogo/hivemind", dependances: true }
+    - { id: acp, nom: "Agent Client Protocol (ACP)", depot: "agentclientprotocol/agent-client-protocol" }
+  criteres:
+    - { id: maturite, nom: "Maturité", poids: 2 }
+    - { id: dynamisme, nom: "Dynamisme", poids: 1 }
+    - { id: licence, nom: "Licence", poids: 3 }
+    - { id: maintenance, nom: "Maintenance", poids: 2 }
+    - { id: cout, nom: "Coût total", poids: 3 }
+    - { id: apprentissage, nom: "Apprentissage", poids: 3 }
+    - { id: reversibilite, nom: "Réversibilité", poids: 2 }
+  notes:
+    statu-quo:
+      maturite: { note: 1, chiffre: "0 release, créé 2026-10-26", url: "https://github.com/assogo/hivemind", date: "2026-10-28" }
+      dynamisme: { note: 1, chiffre: "1 contributeur, 11 commits/90j", url: "https://github.com/assogo/hivemind", date: "2026-10-28" }
+      licence: { note: 1, chiffre: "aucun fichier LICENSE", url: "https://github.com/assogo/hivemind", date: "2026-10-28" }
+      maintenance: { note: 2, chiffre: "1 développeur", url: "https://github.com/assogo/hivemind", date: "2026-10-28" }
+      cout: { note: 5, chiffre: "déjà en place, 0 €", url: "https://github.com/assogo/hivemind", date: "2026-10-28" }
+      apprentissage: { note: 5, chiffre: "déjà maîtrisé", url: "https://github.com/assogo/hivemind", date: "2026-10-28" }
+      reversibilite: { note: 5, chiffre: "rien à défaire", url: "https://github.com/assogo/hivemind", date: "2026-10-28" }
+    acp:
+      maturite: { note: 4, chiffre: "95 releases, créé 2025-06-23", url: "https://github.com/agentclientprotocol/agent-client-protocol", date: "2026-10-28" }
+      dynamisme: { note: 5, chiffre: "100+ contributeurs, 100+ commits/90j", url: "https://github.com/agentclientprotocol/agent-client-protocol", date: "2026-10-28" }
+      licence: { note: 5, chiffre: "Apache-2.0", url: "https://github.com/agentclientprotocol/agent-client-protocol", date: "2026-10-28" }
+      maintenance: { note: 4, chiffre: "communauté active", url: "https://github.com/agentclientprotocol/agent-client-protocol", date: "2026-10-28" }
+      cout: { note: 4, chiffre: "open source, gratuit", url: "https://github.com/agentclientprotocol/agent-client-protocol", date: "2026-10-28" }
+      apprentissage: { note: 2, chiffre: "protocole à apprendre", url: "https://github.com/agentclientprotocol/agent-client-protocol", date: "2026-10-28" }
+      reversibilite: { note: 3, chiffre: "standard, réversible", url: "https://github.com/agentclientprotocol/agent-client-protocol", date: "2026-10-28" }
+
+rapport:
+  tendances:
+    - titre: "Cadence de livraison rapide des CLI d'IA (Claude Code / Codex)"
+      impact: "Hivemind pilote Claude Code et Codex en ligne de commande ; des sorties quasi quotidiennes imposent de suivre et tester chaque version."
+      anticiper: "planifier la compatibilité de Hivemind avec les nouvelles versions et éviter des régressions."
+      compatibilite: "compatible — mises à jour automatiques, 0 €, aucun composant en plus."
+      statut: "retenue — sources officielles (score 4). 10 versions de Claude Code (v2.1.303 → v2.1.312) et 3 versions stables de Codex (rust-v0.165.0, v0.164.0, v0.163.0)."
+    - titre: "Montée de l'interopérabilité entre agents (MCP/ACP)"
+      impact: "piloter plusieurs IA via un protocole standard devient une tendance, ce qui appuie l'option ACP de notre question."
+      anticiper: "la convergence des outils vers un protocole d'agent, et donc l'intérêt de s'y brancher tôt."
+      compatibilite: "compatible — protocoles open source, pas de coût supplémentaire."
+      statut: "écartée — source communautaire « Show HN » (autopromo, score 2 < seuil 4). Ex. « Show HN: CleanCode – Claude Code and Codex collaborating on one canvas » (2026-10-27)."
+    - titre: "Data : encadrement réglementaire, sécurité et télémétrie"
+      impact: "pour un outil local, l'usage des données est encadré (CGU) et exposé à des failles (dépendances) et à la télémétrie des agents."
+      anticiper: "contrôler ce qui quitte la machine (télémétrie) et mettre à jour les dépendances."
+      compatibilite: "compatible (reste local), mais demande vigilance et mises à jour de sécurité."
+      statut: "retenue — CGU officielle « Europe Terms of Use | OpenAI » (2026-01-16) et 2 failles express (securite, score 4) ; la télémétrie (2026-10-28) est écartée (communautaire)."
+  recommandation: "Adopter l'Agent Client Protocol (ACP) pour connecter Hivemind aux IA, au lieu de maintenir un pilotage CLI en dur — décision fondée sur la matrice gh api (ACP 60 vs Hivemind 50), la tendance HN sur l'interopérabilité restant écartée."
+  impact:
+    perimetre: "remplacer la couche d'appel CLI de Hivemind par un client ACP."
+    budget: "0 € (ACP open source Apache-2.0) ; coût en temps de développement uniquement."
+    delais: "2 sprints, compatible avec la prochaine livraison."
+  risques:
+    - "ACP est récent et sa courbe d'apprentissage est réelle pour un seul développeur (matrice : apprentissage 2/5)."
+    - "Le protocole peut encore évoluer (dynamisme fort : 100+ commits/90 j)."
+  plan_b: "Garder le pilotage CLI actuel et réévaluer après le premier sprint."
+  prochaine_etape: "Coder un client ACP minimal dans Hivemind et le tester sur un agent d'ici le 2026-11-06."
+
+frequence: { failles: quotidien, tendances: hebdo }
+livrable: "top 10 du lundi + alerte si faille"

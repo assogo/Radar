@@ -1,0 +1,8 @@
+# Lancer RADAR (depuis le dossier contenant radar.py)
+#  1. gh auth status                                   # verifier la connexion GitHub
+#  2. python radar.py collect                          # lire la config -> data/items.json
+#  3. python radar.py score                            # fiabilite + statut + top 10 + alerte
+#  4. python radar.py search <mot>                     # rechercher titre/etiquettes
+#  5. python radar.py decide ; python radar.py report  # decision.md puis rapport.md
+requests>=2.31
+pyyaml>=6.0
