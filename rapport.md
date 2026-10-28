@@ -24,6 +24,7 @@
 - [Claude Code's default telemetry sends Anthropic SHA-256 hashes of files it reads](https://agenticbench.org/ant-1-claude-code-telemetry.html) — 2026-10-28 (écartée)
 - [DeltaDB now has a Claude Code plugin](https://delta.dev/blog/claude-code-multiplayer) — 2026-10-28 (écartée)
 - [I built a tool with Claude Code that makes the correction stick](https://github.com/globalmpc/nomore) — 2026-10-28 (écartée)
+- [Show HN: Nekot, an iPhone app that warns you before Claude Code limits hit](https://jeman.net/nekot/) — 2026-10-28 (écartée)
 - [Show HN: CleanCode – Claude Code and Codex collaborating on one canvas](https://github.com/chen-985211/cleancode) — 2026-10-27 (écartée)
 - [Show HN: Aigent-OS, a Claude Code harness that clears and resumes](https://github.com/wrg32786/aigent-os) — 2026-10-27 (écartée)
 - [AI review optimized for recall (catches more defects than Codex or Claude)](https://github.com/quickchatai/quickreview) — 2026-10-27 (écartée)

@@ -12,10 +12,10 @@
 - Création : 2026-10-26
 - Versions (releases) : 0
 - Contributeurs : 1
-- Commits (90 jours) : 12
+- Commits (90 jours) : 11
 - Licence : non précisée
 - Source : https://github.com/assogo/hivemind (consultée le 2026-10-28)
-- Dépendances : requests>=2.31, pyyaml>=6.0
+- Dépendances : aucune détectée (pas de package.json / requirements.txt).
 
 ### Agent Client Protocol (ACP)
 - Création : 2025-06-23
